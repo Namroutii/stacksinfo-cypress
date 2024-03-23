@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "cypress": "^13.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 0.5%"
+  ]
+}
