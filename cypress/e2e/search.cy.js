@@ -53,4 +53,52 @@ describe("Search Bar Component", () => {
     cy.get(".slider-element").should("contain", "Mobile");
     cy.get(".company-slogan").should("contain", "Ramallah");
   });
+
+  it('should display an error message for URL input', () => {                                                              
+    cy.get('input[class="search-bar"]').should("be.visible").type('https://stacksinfo.web.app/').should("have.value", "https://stacksinfo.web.app/")
+    cy.get('.Not-found-container').should('exist')
+  })
+
+  it('should display an error message for empty input', () => {
+    cy.get('input[class="search-bar"]').should("be.visible").type('{enter}')
+    cy.wait(2000)
+    cy.get('.card-result .result-item').should('not.exist')
+  })
+
+  it('should display an error message for invalid input', () => {
+    cy.get('input[class="search-bar"]').should("be.visible").type('abcd{enter}')
+    cy.get('.Not-found-container').should('be.visible');
+  });
+
+  it('should clear search results when "Remove All" button is clicked', () => {
+    cy.get('input[class="search-bar"]').should("be.visible").type('React Native{enter}');
+    cy.get('input[class="search-bar"]').click();
+    cy.get('.last-search-and-results .header-last .remove-button').should('exist').click();
+    cy.get('.last-search-and-results').should('not.exist');
+});
+
+
+it('should display an error message for number input', () => {
+  cy.get('input[class="search-bar"]').should("be.visible").type('100{enter}');
+  cy.get('.Not-found-container').should('be.visible');
+});
+
+
+it('should persist search results after refreshing the page', () => {
+  cy.get('input[class="search-bar"]').should("be.visible").type('React Native{enter}');
+  cy.get('.card-result').should('be.visible');
+  cy.get(".card-result .result-item").should(
+    "have.attr",
+    "title",
+    "React Native"
+  );
+  cy.reload();
+  cy.get('.result-container').should('be.visible');
+  cy.get(".card-result .result-item").should(
+    "have.attr",
+    "title",
+    "React Native"
+  );
+});
+
 });
