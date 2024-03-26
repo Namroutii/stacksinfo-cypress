@@ -15,7 +15,7 @@ describe("Search Bar Component", () => {
     cy.get('input[class="search-bar"]').should("be.visible");
   });
 
-  it("should allow entering valid and invalid inputs", () => {
+  it("should allow entering valid and not invalid inputs", () => {
     const validInputs = ["react", "mobile", "exalt"];
     const invalidInputs = ["@", "&&&&"];
 
